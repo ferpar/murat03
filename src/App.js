@@ -15,7 +15,11 @@ function App() {
     const yScale = scaleLinear()
       .domain([0, Math.max(...data)*1.2])
       .range([300, 0]);
-    const xAxis = axisBottom();
+    const xAxis = axisBottom(xScale);
+    svg
+      .select(".x-axis")
+      .style("transform", "translateY(300px)")
+      .call(xAxis);
     const myLine = line()
       .x( (value, idx) => xScale(idx))
       .y(yScale)
@@ -29,15 +33,18 @@ function App() {
     //   .attr("cy", value => value * 2)
     //   .attr("stroke", "red")
     svg
-      .selectAll("path")
+      .selectAll(".line")
       .data([data])
       .join("path")
+      .attr("class", "line")
       .attr("d", myLine)
       .attr("fill", "none")
       .attr("stroke", "blue")
   }, [data]);
   return <React.Fragment>
-    <svg ref={svgRef}></svg>
+    <svg ref={svgRef}>
+      <g className="x-axis" />
+    </svg>
     <br/>
     <button onClick={() => setData(data.map( val => val + 5))}>Update Data</button>
     <button onClick={() => setData(data.filter( value => value  < 50))}> Filter Data</button>

@@ -3,6 +3,7 @@ svg {
   height:300px;
   width: 450px;
   background-color: lightgrey;
+  overflow: visible;
 }
 
 #root {
