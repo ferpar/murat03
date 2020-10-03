@@ -1,0 +1,12 @@
+svg {
+  align-items: center;
+  height:300px;
+  width: 450px;
+  background-color: lightgrey;
+}
+
+#root {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
