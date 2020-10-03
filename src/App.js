@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./App.css";
-import { select, line, curveCardinal } from "d3";
+import { select, line, curveCardinal, axisBottom, scaleLinear } from "d3";
 
 const initialData = [25, 45, 30, 74, 38, 80, 160, 240, 200, 100];
 
@@ -9,9 +9,16 @@ function App() {
   const svgRef = useRef();
   useEffect(() => {
     const svg = select(svgRef.current);
+    const xScale = scaleLinear()
+      .domain([0, data.length - 1])
+      .range([0, (data.length - 1)*50]);
+    const yScale = scaleLinear()
+      .domain([0, Math.max(...data)*1.2])
+      .range([300, 0]);
+    const xAxis = axisBottom();
     const myLine = line()
-      .x( (value, idx) => idx * 50)
-      .y( value => 300 - value)
+      .x( (value, idx) => xScale(idx))
+      .y( value => yScale(value))
       .curve(curveCardinal);
     // svg
     //   .selectAll("circle")
