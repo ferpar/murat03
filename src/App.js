@@ -18,7 +18,7 @@ function App() {
     const xAxis = axisBottom();
     const myLine = line()
       .x( (value, idx) => xScale(idx))
-      .y( value => yScale(value))
+      .y(yScale)
       .curve(curveCardinal);
     // svg
     //   .selectAll("circle")
@@ -32,7 +32,7 @@ function App() {
       .selectAll("path")
       .data([data])
       .join("path")
-      .attr("d", value => myLine(value))
+      .attr("d", myLine)
       .attr("fill", "none")
       .attr("stroke", "blue")
   }, [data]);
